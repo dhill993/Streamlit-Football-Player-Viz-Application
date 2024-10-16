@@ -137,12 +137,12 @@ def create_pizza_chart(complete_data, player_name):
     position = player_df['Primary Position']  # Assuming 'Age' exists
 
     fig.text(
-        0.08, 0.9525, f"{player_name}", size=25,
+        0.08, 0.94, f"{player_name}", size=25,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2"
     )
 
     fig.text(
-        0.08, 0.932,
+        0.08, 0.92,
         "Percentile Rank vs. Positional Peers | Stats per 90",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
@@ -150,24 +150,16 @@ def create_pizza_chart(complete_data, player_name):
 
     # Convert 'Minutes Played' to an integer to remove decimals
     minutes_played = int(player_df['Minutes'])
-    
+
     fig.text(
-        0.08, 0.902,
-        f"Minutes Played: {minutes_played} | Age: {player_df['Age']}",
+        0.08, 0.90,
+        f"Minutes Played: {minutes_played} | Age: {int(player_df['Age'])}",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
     )
 
     # Add a horizontal line at the top with the team's primary color
     fig.add_artist(plt.Line2D((0, 1.2), (0.88, 0.88), color='white', linewidth=2, alpha=0.8, transform=fig.transFigure))
-
-    # Coordinates for the logo inside the pizza chart
-    logo_ax = fig.add_axes([0.84, 0.89, 0.1, 0.1])  # [x0, y0, width, height]
-    team_logo = Image.open('team.jpg')
-
-    logo_ax.imshow(team_logo)
-    logo_ax.axis('off')  # Hide the axis for the logo
-
 
     # Add the legend to the figure (bottom-right corner)
     ax.legend(handles=legend_elements, loc='lower right', bbox_to_anchor=(1.25, 0), fontsize=12, frameon=False, labelcolor='white')
@@ -214,11 +206,10 @@ def create_pizza_chart(complete_data, player_name):
     logo_ax = fig.add_axes([0.4421, 0.427, 0.1375, 0.1375])
     
     # Display the image with reduced transparency
-    logo_ax.imshow(logo_image, alpha=0.1)  # Set alpha to 0.1 (adjust as needed)
+    logo_ax.imshow(logo_image, alpha=0.05)  # Set alpha to 0.1 (adjust as needed)
     
     # Hide the axis
     logo_ax.axis('off')
-
 
     return fig
 
