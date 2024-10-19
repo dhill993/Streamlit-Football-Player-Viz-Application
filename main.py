@@ -5,6 +5,12 @@ from st_pages import show_pages_from_config
 
 DATA_PATH = 'data/football_player_stats.csv'
 show_pages_from_config()
+st.set_page_config(
+    page_title='Football Data Viz',
+    page_icon='💹',
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 st.title('Football Player Metrics Visualization')
 

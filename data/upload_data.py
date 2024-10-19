@@ -4,6 +4,12 @@ from utilities.default_metrics import metrics_required
 import time
 
 PASSWORD = "saqibhere"  # Replace with your desired password
+st.set_page_config(
+    page_title='Football Data Viz',
+    page_icon='💹',
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # Function to check if required columns are present
 def validate_columns(df, required_columns):

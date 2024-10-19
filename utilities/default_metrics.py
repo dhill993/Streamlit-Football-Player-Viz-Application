@@ -33,6 +33,13 @@ all_metric_categories  = {
         "Progressive": ["Key Passes", "PinTin", "OP F3 Passes", "Assists", "xG Assisted"],
         "Advanced": ["Aerial Win%", "Dribbles", "Successful Dribbles", "Aggressive Actions", "Ball Recov. F2"]
     },
+
+    'Attacking Midfielder':
+    {
+        "Defensive": ["Dribbles Stopped%", "Defensive Actions", "PAdj Tackles", "PAdj Interceptions", "Aggressive Actions"],
+        "Progressive": ["Key Passes", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"], #key_passes is temp ; it needs to be replaced with passes %
+        "Advanced": ["Aerial Win%", "Blocks/Shot", "Ball Recoveries", "Defensive Regains", "Dispossessed"]
+    },
 }
 
 metrics_required = list(set(metric for role in all_metric_categories.values() for category in role.values() for metric in category))
