@@ -20,7 +20,7 @@ def validate_columns(df, required_columns):
     return True
 
 # Streamlit layout and functionality
-st.title("Upload and Replace CSV File")
+st.title("Update Player's data")
 
 st.sidebar.header("Authenticate")
 password = st.sidebar.text_input("Enter Password", type="password")
@@ -34,7 +34,7 @@ if st.session_state.submitted:
 
     if password == PASSWORD:
 
-        st.write("Please upload a CSV or Excel file containing all the required columns.")
+        st.write("Please upload a CSV or Excel file containing all the required metrics.")
         # File uploader
         uploaded_file = st.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx"])
 
