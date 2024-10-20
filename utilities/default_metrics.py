@@ -16,20 +16,20 @@ all_metric_categories  = {
     'Defensive Midfielder':
     {
         "Defensive": ["Dribbles Stopped%", "Defensive Actions", "PAdj Tackles", "PAdj Interceptions", "Aggressive Actions"],
-        "Progressive": ["Key Passes", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"], #key_passes is temp ; it needs to be replaced with passes %
+        "Progressive": ["Passing%", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"],
         "Advanced": ["Aerial Win%", "Blocks/Shot", "Ball Recoveries", "Defensive Regains", "Dispossessed"]
     },
 
     'Winger':
     {
-        "Attacking": ["xG/Shot", "xG", "Shots", "PinTin", "NP Goals"], #np_goals is temp ; it needs to be replaced with goals
+        "Attacking": ["xG/Shot", "xG", "Shots", "PinTin", "NP Goals"],
         "Progressive": ["Successful Crosses", "Crossing%", "Key Passes", "Assists", "OP F3 Passes"],
         "Advanced": ["xG Assisted", "Dribbles", "Successful Dribbles", "Aggressive Actions", "Ball Recov. F2"]
     },
 
     'Centre Forward':
     {
-        "Attacking": ["xG/Shot", "xG", "Shot Touch%", "Shooting%", "NP Goals"], #np_goals is temp ; it needs to be replaced with goals
+        "Attacking": ["xG/Shot", "xG", "Shot Touch%", "Shooting%", "NP Goals"],
         "Progressive": ["Key Passes", "PinTin", "OP F3 Passes", "Assists", "xG Assisted"],
         "Advanced": ["Aerial Win%", "Dribbles", "Successful Dribbles", "Aggressive Actions", "Ball Recov. F2"]
     },
@@ -37,7 +37,7 @@ all_metric_categories  = {
     'Attacking Midfielder':
     {
         "Defensive": ["Dribbles Stopped%", "Defensive Actions", "PAdj Tackles", "PAdj Interceptions", "Aggressive Actions"],
-        "Progressive": ["Key Passes", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"], #key_passes is temp ; it needs to be replaced with passes %
+        "Progressive": ["Passing%", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"], 
         "Advanced": ["Aerial Win%", "Blocks/Shot", "Ball Recoveries", "Defensive Regains", "Dispossessed"]
     },
 }
