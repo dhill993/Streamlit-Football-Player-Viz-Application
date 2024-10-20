@@ -4,12 +4,12 @@ from matplotlib.patches import Patch,Circle
 from PIL import Image
 import matplotlib.pyplot as plt
 from utilities.default_metrics import all_metric_categories
-from utilities.utils import get_player_metrics
+from utilities.utils import get_player_metrics_percentile_ranks
 from utilities.utils import custom_fontt
 
 
 def create_pizza_chart(complete_data, player_name, position):
-    player_df = get_player_metrics(complete_data, player_name, position)
+    player_df = get_player_metrics_percentile_ranks(complete_data, player_name, position)
     if player_df is None or player_df.empty:
         st.error(f'Player {player_name} not found.')
         return None
@@ -75,24 +75,30 @@ def create_pizza_chart(complete_data, player_name, position):
     )
 
     fig.text(
-        0.08, 0.92,
+        0.08, 0.92, f"Club: {str(player_df.iloc[0]['Team'])}", 
+        size=10,
+        ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
+    )
+
+    fig.text(
+        0.08, 0.90,
         "Percentile Rank vs. Positional Peers | Stats per 90",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
     )
 
     # Convert 'Minutes Played' to an integer to remove decimals
-    minutes_played = int(player_df['Minutes'])
 
     fig.text(
-        0.08, 0.90,
-        f"Minutes Played: {minutes_played}",
+        0.08, 0.88,
+        f"Minutes Played: {int(player_df['Minutes'])}",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
     )
 
+
     # Add a horizontal line at the top with the team's primary color
-    fig.add_artist(plt.Line2D((0, 1.2), (0.88, 0.88), color='white', linewidth=2, alpha=0.8, transform=fig.transFigure))
+    fig.add_artist(plt.Line2D((0, 1.2), (0.87, 0.87), color='white', linewidth=2, alpha=0.8, transform=fig.transFigure))
 
     # Add the legend to the figure (bottom-right corner)
     ax.legend(handles=legend_elements, loc='lower right', bbox_to_anchor=(1.25, 0), fontsize=12, frameon=False, labelcolor='white')
@@ -131,17 +137,5 @@ def create_pizza_chart(complete_data, player_name, position):
     # Add text '20' above circle 4
     ax.text(circle4_center_x, circle4_center_y + 0.14, '20',
             ha='center', va='center', fontsize=13, zorder=80, color='white', alpha=0.325, fontproperties=custom_fontt, transform=ax.transAxes)
-    
-    # Load the image
-    logo_image = Image.open('data/scout.png')
-
-    # Coordinates for the top right corner
-    logo_ax = fig.add_axes([0.4421, 0.427, 0.1375, 0.1375])
-    
-    # Display the image with reduced transparency
-    logo_ax.imshow(logo_image, alpha=0.05)  # Set alpha to 0.1 (adjust as needed)
-    
-    # Hide the axis
-    logo_ax.axis('off')
 
     return fig
