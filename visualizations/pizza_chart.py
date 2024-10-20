@@ -9,7 +9,7 @@ from utilities.utils import custom_fontt
 
 
 def create_pizza_chart(complete_data, player_name, position):
-    player_df = get_player_metrics(complete_data, player_name)
+    player_df = get_player_metrics(complete_data, player_name, position)
     if player_df is None or player_df.empty:
         st.error(f'Player {player_name} not found.')
         return None
