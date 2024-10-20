@@ -24,11 +24,11 @@ def create_radar_chart(complete_data, player_name, position):
     stats1, stats2 = get_stat_values(all_metrics, player_metrics_df, positional_means_df)
 
     category_colors = {
-        keys_list[0]: "#1A78CF",
-        keys_list[1]: "#58AC4E",
-        keys_list[2]: "#aa42af"
+        keys_list[0]: "#01e0e1",
+        keys_list[1]: "#c49c3a",
+        keys_list[2]: "#fa6697"
     }
-    
+
     num_vars = len(all_metrics)
     angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
     angles = [(angle + np.pi / 2) % (2 * np.pi) for angle in angles]
