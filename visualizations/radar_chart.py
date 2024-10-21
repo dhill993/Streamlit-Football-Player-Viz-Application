@@ -3,14 +3,14 @@ import numpy as np
 import streamlit as st
 from matplotlib.patches import Patch
 from utilities.default_metrics import all_metric_categories
-from utilities.utils import get_player_metrics_positional_mean, get_stat_values
+from utilities.utils import get_player_and_avg_metrics, get_stat_values
 from utilities.utils import custom_fontt
 
 
 
 def create_radar_chart(complete_data, player_name, position):
     player_data = complete_data[complete_data['Name'] == player_name]
-    player_metrics_df, positional_means_df = get_player_metrics_positional_mean(complete_data, player_name, position)
+    player_metrics_df, positional_means_df = get_player_and_avg_metrics(complete_data, player_name, position)
 
     position_specific_categories = all_metric_categories[position]
     keys_list = list(position_specific_categories.keys())

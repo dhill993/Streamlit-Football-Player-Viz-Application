@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.font_manager as fm
 import numpy as np
+from scipy import stats
 custom_fontt = fm.FontProperties(fname="fonts/Alexandria-Regular.ttf")
 
 
@@ -11,48 +12,61 @@ def load_data(file_path):
 def get_players_by_position(df, position):
     return df[df['Primary Position'] == position]['Name'].tolist()
 
-# Helper function to get player metrics
 def get_player_metrics_percentile_ranks(df, player_name, position):
     position_specific_data = df[df['Primary Position'] == position]
     numeric_columns = position_specific_data.select_dtypes(include=np.number)
     non_numeric_columns = position_specific_data.select_dtypes(exclude=np.number)
 
     # Perform percentile ranking (only for numeric columns)
-    positional_percentile_data = numeric_columns.rank(pct=True, axis=1) * 100
+    positional_percentile_data = numeric_columns.rank(pct=True, axis=0) * 100
 
     # Combine the ranked numeric data with the non-numeric columns
-    result = pd.concat([non_numeric_columns, positional_percentile_data], axis=1)
+    result = pd.concat([non_numeric_columns.reset_index(drop=True), positional_percentile_data.reset_index(drop=True)], axis=1)
     player_data = result[result['Name'] == player_name]
 
     if not player_data.empty:
         return player_data
     return None
 
-import pandas as pd
-
-def get_player_metrics_positional_mean(df, player_name, position):
-    # Filter data for the specified position
+def get_avg_metrics_percentile_ranks(df, position):
     position_specific_data = df[df['Primary Position'] == position]
+    numeric_columns = position_specific_data.select_dtypes(include=np.number)
+    non_numeric_columns = position_specific_data.select_dtypes(exclude=np.number)
+
+    # Step 2: Calculate mean of each column
+    column_means = numeric_columns.mean()
+
+    # Step 3: Create a new row for the average values
+    avg_row = {col: column_means[col] for col in numeric_columns.columns}
+    avg_row['Name'] = 'AVG'
+    avg_row['Primary Position'] = None  # Non-numeric fields set to None
+
+    # Create a DataFrame for the average row
+    avg_df = pd.DataFrame([avg_row], columns=df.columns)
+
+    # Step 4: Combine the original DataFrame with the average row
+    df_with_avg = pd.concat([df, avg_df], ignore_index=True)
+
+    # Calculate percentile ranks including the average row
+    positional_percentile_data = df_with_avg[numeric_columns.columns].rank(pct=True, axis=0) * 100
+
+    # Prepare the average metrics DataFrame
+    avg_data = avg_df.copy()
+    avg_data[numeric_columns.columns] = positional_percentile_data.loc[df_with_avg['Name'] == 'AVG'].values.flatten()
     
-    if position_specific_data.empty:
-        raise ValueError(f"No data found for position: {position}")
-        
-    positional_means = position_specific_data.mean(numeric_only=True).round(2)
+    return avg_data
 
-    player_metrics = position_specific_data[position_specific_data['Name'] == player_name]
-
-    if player_metrics.empty:
-        raise ValueError(f"No data found for player: {player_name}")
-
-    player_metrics = player_metrics.select_dtypes(include='number')
+def get_player_and_avg_metrics(df, player_name, position):
+    # Get player metrics
+    player_metrics = get_player_metrics_percentile_ranks(df, player_name, position)
     
-    # Instead of append, use pd.concat
-    player_metrics_df = pd.DataFrame(columns=positional_means.index)
-    player_metrics_df = pd.concat([player_metrics_df, player_metrics], ignore_index=True)
+    # Get average metrics
+    avg_metrics = get_avg_metrics_percentile_ranks(df, position)
+    
+    print(player_metrics)
+    print(avg_metrics)
 
-    positional_means_df = pd.DataFrame([positional_means], columns=positional_means.index)
-
-    return player_metrics_df, positional_means_df
+    return player_metrics, avg_metrics
 
 def get_stat_values(all_metrics, player_metrics_df, positional_means_df):
     stat1 = []
