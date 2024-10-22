@@ -94,12 +94,20 @@ def create_radar_chart(complete_data, player_name, position):
 
     # Create legend
     # Create custom legend
-    legend_elements = [
+    legend_elements_1 = [
         Patch(facecolor=category_colors[keys_list[0]], edgecolor='white', label=keys_list[0]),
         Patch(facecolor=category_colors[keys_list[1]], edgecolor='white', label=keys_list[1]),
-        Patch(facecolor=category_colors[keys_list[2]], edgecolor='white', label=keys_list[2])
+        Patch(facecolor=category_colors[keys_list[2]], edgecolor='white', label=keys_list[2]),
     ]
-    
-    ax.legend(handles=legend_elements, loc='lower right', bbox_to_anchor=(1.25, 0), fontsize=12, frameon=False, labelcolor='white')
+
+    legend_elements_2 = [
+        Patch(facecolor='#1f77b4', edgecolor='gray', label=f"{player_name}"),
+        Patch(facecolor='#d62728', edgecolor='gray', label='Average L1 Forward'),
+        Patch(facecolor='#2E2E2A', label='')
+
+    ]
+
+    combined_legend_elements = legend_elements_2 + legend_elements_1
+    ax.legend(handles=combined_legend_elements, loc='lower right', bbox_to_anchor=(1.40, 0), fontsize=12, frameon=False, labelcolor='white')
 
     return fig1
