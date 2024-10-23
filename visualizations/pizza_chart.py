@@ -1,7 +1,6 @@
 import streamlit as st
 from mplsoccer import PyPizza
 from matplotlib.patches import Patch,Circle
-from PIL import Image
 import matplotlib.pyplot as plt
 from utilities.default_metrics import all_metric_categories
 from utilities.utils import get_player_metrics_percentile_ranks
