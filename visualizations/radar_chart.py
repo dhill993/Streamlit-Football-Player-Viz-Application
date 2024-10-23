@@ -102,7 +102,7 @@ def create_radar_chart(complete_data, player_name, position):
 
     legend_elements_2 = [
         Patch(facecolor='#1f77b4', edgecolor='gray', label=f"{player_name}"),
-        Patch(facecolor='#d62728', edgecolor='gray', label='Average L1 Forward'),
+        Patch(facecolor='#d62728', edgecolor='gray', label=f'Average L1 {position}'),
         Patch(facecolor='#2E2E2A', label='')
 
     ]

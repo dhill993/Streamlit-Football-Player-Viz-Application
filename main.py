@@ -42,10 +42,10 @@ with st.expander("Expand to view Player's Overall Rank", expanded=False):
     data_frame = load_data(DATA_PATH)
     league = st.selectbox('Select League:', ['DEFAULT'], index=0, key='overall_league')
     position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='overall_position')
-    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, position), index=0, key='overall_player')
 
     # Button to generate pizza chart
     if st.button('Computer Player Rank'):
-        fig_roverall = create_rank_visualization(data_frame, league, player_name, position)
+        fig_roverall = create_rank_visualization(data_frame, league, position)
         if fig_roverall is not None:
-            st.plotly_chart(fig_roverall,use_container_width=True)
+            with st.container():
+                st.dataframe(fig_roverall, use_container_width=True)
