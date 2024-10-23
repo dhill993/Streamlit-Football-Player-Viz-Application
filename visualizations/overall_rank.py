@@ -49,6 +49,9 @@ def create_rank_visualization(data, league_name, position):
             return ['background-color: green']  # 75% and above
 
     overall_rank_df = get_overall_rank(data, league_name, position)
+    overall_rank_df = overall_rank_df.reset_index()
+    overall_rank_df.index = overall_rank_df.index + 1  # Start the index from 1
+
     styled_df = overall_rank_df[['Name', 'Team', 'Minutes', 'Overall Score']].style.apply(color_overall_score, axis=1, subset=['Overall Score'])
 
     return styled_df

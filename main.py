@@ -38,14 +38,26 @@ with st.expander("Expand to view Radar Chart", expanded=False):
         if fig_radar is not None:
             st.pyplot(fig_radar)  # Display the pizza chart
 
-with st.expander("Expand to view Player's Overall Rank", expanded=False):
+with st.expander("Expand to view Player's Overall Peer Rank", expanded=False):
     data_frame = load_data(DATA_PATH)
     league = st.selectbox('Select League:', ['DEFAULT'], index=0, key='overall_league')
     position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='overall_position')
 
     # Button to generate pizza chart
-    if st.button('Computer Player Rank'):
+    if st.button(f'Computer Ranks for {position}'):
         fig_roverall = create_rank_visualization(data_frame, league, position)
         if fig_roverall is not None:
             with st.container():
+                st.write(
+                    """
+                    <style>
+                    .dataframe th:nth-child(1) {{ width: 150px; }}  /* Width for Name */
+                    .dataframe th:nth-child(2) {{ width: 100px; }}  /* Width for Team */
+                    .dataframe th:nth-child(3) {{ width: 80px; }}   /* Width for Minutes */
+                    .dataframe th:nth-child(4) {{ width: 120px; }}  /* Width for Overall Score */
+                    .dataframe th:nth-child(5) {{ width: 10px; }}   /* Width for Overall Rank */
+                    </style>
+                    """,
+                    unsafe_allow_html=True
+                )
                 st.dataframe(fig_roverall, use_container_width=True)
