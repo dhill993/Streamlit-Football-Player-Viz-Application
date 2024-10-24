@@ -19,6 +19,7 @@ def get_overall_rank(data, league_name, position):
     to compute the overall score for each player, rounding to two decimal places.
     """
     data = data[data['Primary Position']==position]
+    data = data[data['Minutes']>=500]
 
     for metric in METRIC_COLUMNS:
         # Calculate the percentile rank for each metric and round to 2 decimal places
@@ -41,9 +42,9 @@ def create_rank_visualization(data, league_name, position):
     """
     def color_overall_score(row):
         overall_score = row['Overall Score']
-        if overall_score < 56:
+        if overall_score < 50 :
             return ['background-color: red']  # lower than 55%
-        elif 56 <= overall_score <= 74:
+        elif 50 <= overall_score <= 69:
             return ['background-color: orange']  # between 56% and 74%
         else:
             return ['background-color: green']  # 75% and above
