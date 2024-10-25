@@ -14,8 +14,8 @@ def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_ag
         df[f'{metric}_percentile'] = df[metric].rank(pct=True) * 100
 
     # Filter based on percentiles
-    x_percentile = 95  # Adjust as needed
-    y_percentile = 95  # Adjust as needed
+    x_percentile = 80  # Adjust as needed
+    y_percentile = 80  # Adjust as needed
     top_x_players = df[df[f'{x_metric}_percentile'] >= x_percentile]
     top_y_players = df[df[f'{y_metric}_percentile'] >= y_percentile]
     top_both_players = df[(df[f'{x_metric}_percentile'] >= x_percentile) & (df[f'{y_metric}_percentile'] >= y_percentile)]
@@ -23,7 +23,7 @@ def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_ag
     top_players = pd.concat([top_x_players, top_y_players, top_both_players]).drop_duplicates()
 
     # Create scatter plot
-    fig, ax = plt.subplots(figsize=(14, 8), facecolor='#222222')
+    fig, ax = plt.subplots(figsize=(16,10), facecolor='#222222')
     ax.set_facecolor('#222222')
     
     # Scatter plot for all players
@@ -33,12 +33,24 @@ def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_ag
 
     # Annotated players
     ax.scatter(top_players[x_metric], top_players[y_metric], 
-               c='#358244', s=175, marker='o', edgecolor='grey', label='Top Performers', alpha=0.6)
+               c='#358244', s=180, marker='o', edgecolor='grey', label='Top Performers', alpha=0.6)
 
-    # Annotate names
     for _, row in top_players.iterrows():
-        ax.annotate(row['Name'], (row[x_metric], row[y_metric]),
-                    fontsize=11, color='#d0ceda', alpha=1, ha='center', fontproperties=custom_fontt)
+        # Split the name to get the first name initial and the last name
+        name_parts = row['Name'].split()
+        initials = f"{name_parts[0][0]}. {name_parts[-1]}" if len(name_parts) > 1 else name_parts[0]
+
+        # Annotate the plot with the modified name format
+        ax.annotate(
+            initials,
+            (row[x_metric], row[y_metric]),
+            fontsize=10, 
+            color='#d0ceda', 
+            alpha=0.7, 
+            ha='left', 
+            va='bottom', 
+            fontproperties=custom_fontt
+        )
 
     # Titles and labels
     plt.title(f'{y_metric}  vs.  {x_metric}\n', fontproperties=custom_fontt, ha='center', color='white', fontsize=20)
