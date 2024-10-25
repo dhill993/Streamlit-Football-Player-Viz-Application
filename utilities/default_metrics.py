@@ -29,7 +29,7 @@ all_metric_categories  = {
 
     'Centre Forward':
     {
-        "Attacking": ["xG/Shot", "xG", "Shot Touch%", "Shooting%", "NP Goals"],
+        "Attacking": ["Shots", "xG", "Shot Touch%", "Shooting%", "NP Goals"],
         "Progressive": ["Key Passes", "PinTin", "OP F3 Passes", "Assists", "xG Assisted"],
         "Advanced": ["Aerial Win%", "Dribbles", "Successful Dribbles", "Aggressive Actions", "Ball Recov. F2"]
     },
@@ -43,3 +43,37 @@ all_metric_categories  = {
 }
 
 metrics_required = list(set(metric for role in all_metric_categories.values() for category in role.values() for metric in category))
+all_numeric_metrics = [
+    "NP Goals",
+    "xG",
+    "xG/Shot",
+    "Shots",
+    "Shooting%",
+    "Shot Touch%",
+    "Assists",
+    "xG Assisted",
+    "Key Passes",
+    "Scoring Contribution",
+    "Dribbles",
+    "Successful Dribbles",
+    "Dispossessed",
+    "PAdj Interceptions",
+    "PAdj Clearances",
+    "Defensive Actions",
+    "Aggressive Actions",
+    "Blocks/Shot",
+    "Defensive Regains",
+    "Ball Recov. F2",
+    "Ball Recoveries",
+    "PAdj Tackles",
+    "Dribbles Stopped%",
+    "Aerial Win%",
+    "Passing%",
+    "Long Ball%",
+    "xGBuildup",
+    "Carry Length",
+    "OP F3 Passes",
+    "PinTin",
+    "Successful Crosses",
+    "Crossing%"
+]

@@ -3,6 +3,9 @@ from utilities.utils import get_players_by_position, load_data
 from visualizations.pizza_chart import create_pizza_chart
 from visualizations.radar_chart import create_radar_chart
 from visualizations.overall_rank import create_rank_visualization
+from visualizations.scatter_plot import create_scatter_chart
+from utilities.default_metrics import all_numeric_metrics
+
 from st_pages import show_pages_from_config
 
 DATA_PATH = 'data/football_player_stats.csv'
@@ -37,6 +40,43 @@ with st.expander("Expand to view Radar Chart", expanded=False):
         fig_radar = create_radar_chart(data_frame, player_name, position)
         if fig_radar is not None:
             st.pyplot(fig_radar)  # Display the pizza chart
+
+
+with st.expander("Expand to view Scatter Plot", expanded=False):
+    df = load_data(DATA_PATH)
+    league = st.selectbox('Select League:', ['DEFAULT'], index=0, key='scatter_league')
+    position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='scatter_pos')
+
+    # age_range = st.slider("Select Age Range", min_value=int(df['Age'].min()), max_value=int(df['Age'].max()), 
+    #                       value=(int(df['Age'].min()), int(df['Age'].max())))
+
+
+    age_range = st.slider("Select Age Range", min_value=int(18), max_value=int(50), 
+                          value=(int(18), int(50)))
+
+    minutes_range = st.slider("Select Minutes Played Range", min_value=150, 
+                               max_value=int(df['Minutes'].max()), 
+                               value=(150, int(df['Minutes'].max())))
+
+    x_metric_display = st.selectbox(
+        "Select Metric for X-Axis", 
+        all_numeric_metrics,  # Use the values for the dropdown
+        index=0
+    )    
+    # Dropdown for selecting the y-axis metric, excluding the selected x_metric
+    y_metric_display = st.selectbox(
+        "Select Metric for Y-Axis", 
+        all_numeric_metrics,
+        index=0
+    )
+
+
+    # Button to generate pizza chart
+    if st.button(f'Generate Scatter Plot'):
+        fig_scatter = create_scatter_chart(df, league, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
+        if fig_scatter is not None:
+            st.pyplot(fig_scatter)  # Display the pizza chart
+
 
 with st.expander("Expand to view Player's Overall Peer Rank", expanded=False):
     data_frame = load_data(DATA_PATH)
