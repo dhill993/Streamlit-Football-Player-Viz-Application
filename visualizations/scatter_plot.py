@@ -2,24 +2,21 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from utilities.utils import custom_fontt
 
-
 def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_age, max_age, min_minutes, max_minutes):
 
     df = df[df['Primary Position']==player_position]
     df = df[(df['Minutes'] >= min_minutes) & (df['Minutes'] <= max_minutes)]
-    # df = df[(df['Age'] >= min_age) & (df['Age'] <= max_age)]
-
+    
     # Calculate percentiles
     for metric in [x_metric, y_metric]:
         df[f'{metric}_percentile'] = df[metric].rank(pct=True) * 100
 
     # Filter based on percentiles
-    x_percentile = 80  # Adjust as needed
-    y_percentile = 80  # Adjust as needed
+    x_percentile = 80
+    y_percentile = 80
     top_x_players = df[df[f'{x_metric}_percentile'] >= x_percentile]
     top_y_players = df[df[f'{y_metric}_percentile'] >= y_percentile]
     top_both_players = df[(df[f'{x_metric}_percentile'] >= x_percentile) & (df[f'{y_metric}_percentile'] >= y_percentile)]
-    
     top_players = pd.concat([top_x_players, top_y_players, top_both_players]).drop_duplicates()
 
     # Create scatter plot
@@ -36,11 +33,8 @@ def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_ag
                c='#358244', s=180, marker='o', edgecolor='grey', label='Top Performers', alpha=0.6)
 
     for _, row in top_players.iterrows():
-        # Split the name to get the first name initial and the last name
         name_parts = row['Name'].split()
         initials = f"{name_parts[0][0]}. {name_parts[-1]}" if len(name_parts) > 1 else name_parts[0]
-
-        # Annotate the plot with the modified name format
         ax.annotate(
             initials,
             (row[x_metric], row[y_metric]),
@@ -54,29 +48,34 @@ def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_ag
 
     # Titles and labels
     plt.title(f'{y_metric}  vs.  {x_metric}\n', fontproperties=custom_fontt, ha='center', color='white', fontsize=20)
-
     plt.xlabel(x_metric, fontsize=12, fontproperties=custom_fontt, color='white')
     plt.ylabel(y_metric, fontsize=12, fontproperties=custom_fontt, color='white')
 
+    # Set white color for axis lines and tick labels
+    ax.spines['bottom'].set_color('white')
+    ax.spines['left'].set_color('white')
+    ax.tick_params(axis='x', colors='white')
+    ax.tick_params(axis='y', colors='white')
+
+    # Calculate and add dotted average lines
+    avg_x = df[x_metric].mean()
+    avg_y = df[y_metric].mean()
+    ax.axhline(y=avg_y, color='white', linestyle=':', linewidth=1, label=f'Average {y_metric}')
+    ax.axvline(x=avg_x, color='white', linestyle=':', linewidth=1, label=f'Average {x_metric}')
+
     # Show grid
     plt.grid(color='gray', linestyle='--', linewidth=0.25)
-        # Create the footer text
+
+    # Footer text
     footer_text = (f"Chosen Leagues :- {league}\n"
-                    f"Chosen Position :- {player_position}\n")
-
-    # Add footer text to the plot
+                   f"Chosen Position :- {player_position}\n")
     plt.text(0, -0.125, footer_text, ha='left', fontproperties=custom_fontt, fontsize=10, color='white', 
-                alpha=0.6, transform=plt.gca().transAxes, verticalalignment='top')
-
-
-    # Create a formatted string for the footer
+             alpha=0.6, transform=plt.gca().transAxes, verticalalignment='top')
+    
     footer_text2 = (f"Age Range :- {max_age} - {min_age}\n"
-                        f"Minutes Range :- {min_minutes} - {max_minutes}\n")
-
-    # Add footer text to the plot
+                    f"Minutes Range :- {min_minutes} - {max_minutes}\n")
     plt.text(1, -0.125, footer_text2, ha='right', fontproperties=custom_fontt, fontsize=10, color='white',
-                alpha=0.6, transform=plt.gca().transAxes, verticalalignment='top')
+             alpha=0.6, transform=plt.gca().transAxes, verticalalignment='top')
 
     # Return the figure object
     return fig
-
