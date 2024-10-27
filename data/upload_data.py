@@ -5,7 +5,7 @@ import time
 
 PASSWORD = "saqibhere"  # Replace with your desired password
 st.set_page_config(
-    page_title='Football Data Viz',
+    page_title='Bristol Rovers - Data Analysis Tool',
     page_icon='💹',
     layout="wide",
     initial_sidebar_state="expanded"

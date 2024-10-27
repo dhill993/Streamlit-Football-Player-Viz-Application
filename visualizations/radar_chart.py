@@ -103,12 +103,11 @@ def create_radar_chart(complete_data, league_name,player_name, position):
         Patch(facecolor=category_colors[keys_list[2]], edgecolor='white', label=keys_list[2]),
     ]
 
+    dis_league_name = league_name if league_name!='All' else 'All Leagues'
     legend_elements_2 = [
         Patch(facecolor='#1f77b4', edgecolor='gray', label=f"{player_name}"),
-        Patch(facecolor='#d62728', edgecolor='gray', label=f'Average L1 {position}'),
-        Patch(facecolor='#2E2E2A', label='')
-
-    ]
+        Patch(facecolor='#d62728', edgecolor='gray', label=f'Average {dis_league_name} {position}'),
+        Patch(facecolor='#2E2E2A', label='')]
 
     combined_legend_elements = legend_elements_2 + legend_elements_1
     ax.legend(handles=combined_legend_elements, loc='lower right', bbox_to_anchor=(1.40, 0), fontsize=12, frameon=False, labelcolor='white')

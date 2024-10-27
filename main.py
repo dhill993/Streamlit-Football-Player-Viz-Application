@@ -11,18 +11,16 @@ from st_pages import show_pages_from_config
 DATA_PATH = 'data/All Leagues/*.csv'
 show_pages_from_config()
 st.set_page_config(
-    page_title='Football Data Viz',
+    page_title='Bristol Rovers - Data Analysis Tool',
     page_icon='💹',
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-st.title('Football Player Metrics Visualization')
-
+st.title('Bristol Rovers - Data Analysis Tool')
 playing_positions = ['Centre Back', 'Full Back', 'Defensive Midfielder', 'Winger', 'Centre Forward', 'Attacking Midfielder']
 
-
-with st.expander("Expand to view Pizza Chart", expanded=False):
+with st.expander("Expand to view pizza chart", expanded=False):
     data_frame = load_data(DATA_PATH)
     leaguesoptions = list(data_frame['League'].unique())
     leaguesoptions.append('All')
@@ -38,7 +36,7 @@ with st.expander("Expand to view Pizza Chart", expanded=False):
         if fig_pizza is not None:
             st.pyplot(fig_pizza)  # Display the pizza chart
 
-with st.expander("Expand to view Radar Chart", expanded=False):
+with st.expander("Expand to view player comparison radar chart", expanded=False):
     data_frame = load_data(DATA_PATH)
     leaguesoptions = list(data_frame['League'].unique())
     leaguesoptions.append('All')
@@ -55,7 +53,7 @@ with st.expander("Expand to view Radar Chart", expanded=False):
             st.pyplot(fig_radar)  # Display the pizza chart
 
 
-with st.expander("Expand to view Scatter Plot", expanded=False):
+with st.expander("Expand to view scatter plot", expanded=False):
     data_frame = load_data(DATA_PATH)
     leaguesoptions = list(data_frame['League'].unique())
     leaguesoptions.append('All')
@@ -94,7 +92,7 @@ with st.expander("Expand to view Scatter Plot", expanded=False):
             st.pyplot(fig_scatter)  # Display the pizza chart
 
 
-with st.expander("Expand to view Player's Overall Peer Rank", expanded=False):
+with st.expander("Expand to view players overall rank score", expanded=False):
     data_frame = load_data(DATA_PATH)
     leaguesoptions = list(data_frame['League'].unique())
     leaguesoptions.append('All')
