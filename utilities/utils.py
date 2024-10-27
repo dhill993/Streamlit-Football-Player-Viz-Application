@@ -21,7 +21,9 @@ def load_data(folder_path):
     return combined_df
 
 # Helper function to get players by position
-def get_players_by_position(df, position):
+def get_players_by_position(df, league, position):
+    if league!='All':
+        df = df[df['League'] == league]    
     return df[df['Primary Position'] == position]['Name'].tolist()
 
 def get_player_metrics_percentile_ranks(df, player_name, position):

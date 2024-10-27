@@ -24,23 +24,33 @@ playing_positions = ['Centre Back', 'Full Back', 'Defensive Midfielder', 'Winger
 
 with st.expander("Expand to view Pizza Chart", expanded=False):
     data_frame = load_data(DATA_PATH)
+    leaguesoptions = list(data_frame['League'].unique())
+    leaguesoptions.append('All')
+
+    league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='pizza_league')
+
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='pizza_positon')
-    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, position), index=0, key='pizza_player')
+    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, league,position), index=0, key='pizza_player')
 
     # Button to generate pizza chart
     if st.button('Generate Pizza Chart'):
-        fig_pizza = create_pizza_chart(data_frame, player_name, position)
+        fig_pizza = create_pizza_chart(data_frame, league,player_name, position)
         if fig_pizza is not None:
             st.pyplot(fig_pizza)  # Display the pizza chart
 
 with st.expander("Expand to view Radar Chart", expanded=False):
     data_frame = load_data(DATA_PATH)
+    leaguesoptions = list(data_frame['League'].unique())
+    leaguesoptions.append('All')
+
+    league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='radar_league')
+
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='radar_positon')
-    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, position), index=0, key='radar_player')
+    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, league,position), index=0, key='radar_player')
 
     # Button to generate pizza chart
     if st.button('Generate Radar Chart'):
-        fig_radar = create_radar_chart(data_frame, player_name, position)
+        fig_radar = create_radar_chart(data_frame, league,player_name, position)
         if fig_radar is not None:
             st.pyplot(fig_radar)  # Display the pizza chart
 

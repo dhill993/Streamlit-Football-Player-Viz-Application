@@ -74,9 +74,9 @@ def create_scatter_chart(df, league, player_position, x_metric, y_metric, min_ag
     y_lim = list(map(abs,ax.get_ylim()))
 
     ax.text(x_lim[1] * 0.95, y_lim[1] * 0.95, f'High {x_metric}, High {y_metric}', color='green', fontsize=9, ha='right', va='top')
-    ax.text(x_lim[1] * 0.95, y_lim[0] * 1, f'High {x_metric}, Low {y_metric}', color='green', fontsize=9, ha='right', va='bottom')
-    ax.text(x_lim[0] * 1.05, y_lim[1] * 0.95, f'Low {x_metric}, High {y_metric}', color='green', fontsize=9, ha='left', va='top')
-    ax.text(x_lim[0] * 1.05, y_lim[0] * 1, f'Low {x_metric}, Low {y_metric}', color='green', fontsize=9, ha='left', va='bottom')
+    ax.text(x_lim[1] * 0.95, y_lim[0] , f'High {x_metric}, Low {y_metric}', color='green', fontsize=9, ha='right', va='bottom')
+    ax.text(x_lim[0] , y_lim[1] * 0.95, f'Low {x_metric}, High {y_metric}', color='green', fontsize=9, ha='left', va='top')
+    ax.text(x_lim[0], y_lim[0] , f'Low {x_metric}, Low {y_metric}', color='green', fontsize=9, ha='left', va='bottom')
 
     footer_text = (f"Chosen Leagues :- {league}\n"
                    f"Chosen Position :- {player_position}\n")

@@ -8,8 +8,11 @@ from utilities.utils import custom_fontt
 
 
 
-def create_radar_chart(complete_data, player_name, position):
+def create_radar_chart(complete_data, league_name,player_name, position):
     player_data = complete_data[complete_data['Name'] == player_name]
+    if league_name!='All':
+        complete_data = complete_data[complete_data['League'] == league_name]    
+
     player_metrics_df, positional_means_df = get_player_and_avg_metrics(complete_data, player_name, position)
 
     position_specific_categories = all_metric_categories[position]

@@ -8,7 +8,7 @@ def get_overall_rank(data, league_name, position):
     to compute the overall score for each player, rounding to two decimal places.
     """
     if league_name!='All':
-        df = df[df['League'] == league_name]    
+        data = data[data['League'] == league_name]    
     data = data[data['Primary Position']==position]
     data = data[data['Minutes']>=500]
 

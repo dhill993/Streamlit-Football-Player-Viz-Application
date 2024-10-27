@@ -7,7 +7,9 @@ from utilities.utils import get_player_metrics_percentile_ranks
 from utilities.utils import custom_fontt
 
 
-def create_pizza_chart(complete_data, player_name, position):
+def create_pizza_chart(complete_data,league_name, player_name, position):
+    if league_name!='All':
+        complete_data = complete_data[complete_data['League'] == league_name]    
     player_df = get_player_metrics_percentile_ranks(complete_data, player_name, position)
     if player_df is None or player_df.empty:
         st.error(f'Player {player_name} not found.')
