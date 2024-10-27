@@ -8,7 +8,7 @@ from utilities.default_metrics import all_numeric_metrics
 
 from st_pages import show_pages_from_config
 
-DATA_PATH = 'data/football_player_stats.csv'
+DATA_PATH = 'data/All Leagues/*.csv'
 show_pages_from_config()
 st.set_page_config(
     page_title='Football Data Viz',
@@ -19,9 +19,12 @@ st.set_page_config(
 
 st.title('Football Player Metrics Visualization')
 
+playing_positions = ['Centre Back', 'Full Back', 'Defensive Midfielder', 'Winger', 'Centre Forward', 'Attacking Midfielder']
+
+
 with st.expander("Expand to view Pizza Chart", expanded=False):
     data_frame = load_data(DATA_PATH)
-    position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='pizza_positon')
+    position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='pizza_positon')
     player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, position), index=0, key='pizza_player')
 
     # Button to generate pizza chart
@@ -32,7 +35,7 @@ with st.expander("Expand to view Pizza Chart", expanded=False):
 
 with st.expander("Expand to view Radar Chart", expanded=False):
     data_frame = load_data(DATA_PATH)
-    position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='radar_positon')
+    position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='radar_positon')
     player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, position), index=0, key='radar_player')
 
     # Button to generate pizza chart
@@ -43,9 +46,12 @@ with st.expander("Expand to view Radar Chart", expanded=False):
 
 
 with st.expander("Expand to view Scatter Plot", expanded=False):
-    df = load_data(DATA_PATH)
-    league = st.selectbox('Select League:', ['DEFAULT'], index=0, key='scatter_league')
-    position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='scatter_pos')
+    data_frame = load_data(DATA_PATH)
+    leaguesoptions = list(data_frame['League'].unique())
+    leaguesoptions.append('All')
+
+    league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='scatter_league')
+    position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='scatter_pos')
 
     # age_range = st.slider("Select Age Range", min_value=int(df['Age'].min()), max_value=int(df['Age'].max()), 
     #                       value=(int(df['Age'].min()), int(df['Age'].max())))
@@ -55,8 +61,8 @@ with st.expander("Expand to view Scatter Plot", expanded=False):
                           value=(int(18), int(50)))
 
     minutes_range = st.slider("Select Minutes Played Range", min_value=150, 
-                               max_value=int(df['Minutes'].max()), 
-                               value=(150, int(df['Minutes'].max())))
+                               max_value=int(data_frame['Minutes'].max()), 
+                               value=(150, int(data_frame['Minutes'].max())))
 
     x_metric_display = st.selectbox(
         "Select Metric for X-Axis", 
@@ -73,15 +79,17 @@ with st.expander("Expand to view Scatter Plot", expanded=False):
 
     # Button to generate pizza chart
     if st.button(f'Generate Scatter Plot'):
-        fig_scatter = create_scatter_chart(df, league, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
+        fig_scatter = create_scatter_chart(data_frame, league, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
         if fig_scatter is not None:
             st.pyplot(fig_scatter)  # Display the pizza chart
 
 
 with st.expander("Expand to view Player's Overall Peer Rank", expanded=False):
     data_frame = load_data(DATA_PATH)
-    league = st.selectbox('Select League:', ['DEFAULT'], index=0, key='overall_league')
-    position = st.selectbox('Select Playing Position:', data_frame['Primary Position'].unique(), index=0, key='overall_position')
+    leaguesoptions = list(data_frame['League'].unique())
+    leaguesoptions.append('All')
+    league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='overall_league')
+    position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='overall_position')
 
     # Button to generate pizza chart
     if st.button(f'Computer Ranks for {position}'):

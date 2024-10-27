@@ -1,32 +1,23 @@
 
 import plotly.graph_objects as go
-
-METRIC_COLUMNS = [
-    "NP Goals", "xG", "xG/Shot", "Shots", "Shooting%", 
-    "Shot Touch%", "Assists", "xG Assisted", "Key Passes", 
-    "Scoring Contribution", "Dribbles", "Successful Dribbles", 
-    "Dispossessed", "PAdj Interceptions", "PAdj Clearances", 
-    "Defensive Actions", "Aggressive Actions", "Blocks/Shot", 
-    "Defensive Regains", "Ball Recov. F2", "Ball Recoveries", 
-    "PAdj Tackles", "Dribbles Stopped%", "Aerial Win%", 
-    "Passing%", "Long Ball%", "xGBuildup", "Carry Length", 
-    "OP F3 Passes", "PinTin", "Successful Crosses", "Crossing%"
-]
+from utilities.default_metrics import all_numeric_metrics
 
 def get_overall_rank(data, league_name, position):
     """
     This function calculates the percentile rank for each metric column and then averages these percentiles
     to compute the overall score for each player, rounding to two decimal places.
     """
+    if league_name!='All':
+        df = df[df['League'] == league_name]    
     data = data[data['Primary Position']==position]
     data = data[data['Minutes']>=500]
 
-    for metric in METRIC_COLUMNS:
+    for metric in all_numeric_metrics:
         # Calculate the percentile rank for each metric and round to 2 decimal places
         data[f'{metric}_percentile'] = (data[metric].rank(pct=True) * 100).round(0)
     
     # Calculate the average of all metric percentiles to get the overall score, rounded to 2 decimal places
-    data['Overall Score'] = data[[f'{metric}_percentile' for metric in METRIC_COLUMNS]].mean(axis=1).astype(int)
+    data['Overall Score'] = data[[f'{metric}_percentile' for metric in all_numeric_metrics]].mean(axis=1).astype(int)
     data = data.sort_values(by='Overall Score', ascending=False)
     return data[['Name', 'Team', 'Minutes', 'Overall Score']]
 

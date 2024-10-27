@@ -1,12 +1,24 @@
 import pandas as pd
 import matplotlib.font_manager as fm
 import numpy as np
-from scipy import stats
+import glob
+import os
 custom_fontt = fm.FontProperties(fname="fonts/Alexandria-Regular.ttf")
 
 
-def load_data(file_path):
-    return pd.read_csv(file_path)
+def load_data(folder_path):
+
+    all_data = []
+    for file in glob.glob(folder_path):
+        df = pd.read_csv(file)
+        # Extracting the file name without extension as 'league' column
+        df['League'] = os.path.splitext(os.path.basename(file))[0]
+        all_data.append(df)
+
+    # Concatenate all DataFrames into a single DataFrame
+    combined_df = pd.concat(all_data, ignore_index=True)
+
+    return combined_df
 
 # Helper function to get players by position
 def get_players_by_position(df, position):
