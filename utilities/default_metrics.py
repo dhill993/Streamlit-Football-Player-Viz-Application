@@ -36,9 +36,9 @@ all_metric_categories  = {
 
     'Attacking Midfielder':
     {
-        "Defensive": ["Dribbles Stopped%", "Defensive Actions", "PAdj Tackles", "PAdj Interceptions", "Aggressive Actions"],
-        "Progressive": ["Passing%", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"], 
-        "Advanced": ["Aerial Win%", "Blocks/Shot", "Ball Recoveries", "Defensive Regains", "Dispossessed"]
+        "Attacking": ["Shooting%", "Shots", "xG/Shot", "Scoring Contribution", "Shot Touch%"],
+        "Progressive": ["Passing%", "OP F3 Passes", "PinTin", "Key Passes", "Assists"], 
+        "Advanced": ["Dribbles", "Successful Dribbles", "xG Assisted", "Aggressive Actions", "Ball Recov. F2"]
     },
 }
 
