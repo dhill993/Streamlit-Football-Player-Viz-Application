@@ -4,3 +4,4 @@ matplotlib
 mplsoccer
 plotly
 st-pages==0.4.3
+openpyxl

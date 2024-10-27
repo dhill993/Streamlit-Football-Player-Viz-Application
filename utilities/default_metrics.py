@@ -42,7 +42,7 @@ all_metric_categories  = {
     },
 }
 
-metrics_required = list(set(metric for role in all_metric_categories.values() for category in role.values() for metric in category))
+all_cat_metric = list(set(metric for role in all_metric_categories.values() for category in role.values() for metric in category))
 all_numeric_metrics = [
     "NP Goals", "xG", "xG/Shot", "Shots", "Goal Conversion%", "Shooting%", 
     "Shot Touch%", "Assists", "xG Assisted", "Key Passes", "Scoring Contribution", 
@@ -53,3 +53,5 @@ all_numeric_metrics = [
     "Carries", "Carry%", "Carry Length", "OP F3 Passes", "Passes Inside Box", 
     "Touches In Box", "PinTin", "Throughballs", "Successful Crosses", "Crossing%"
 ]
+non_numeric = ['Team', 'Name', 'Age', 'Minutes', 'Primary Position']
+metrics_required = list(set(all_cat_metric) | set(non_numeric))

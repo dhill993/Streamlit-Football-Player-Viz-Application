@@ -60,6 +60,7 @@ with st.expander("Expand to view scatter plot", expanded=False):
 
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='scatter_league')
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='scatter_pos')
+    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, league,position), index=0, key='scatter_player')
 
     # age_range = st.slider("Select Age Range", min_value=int(df['Age'].min()), max_value=int(df['Age'].max()), 
     #                       value=(int(df['Age'].min()), int(df['Age'].max())))
@@ -87,7 +88,7 @@ with st.expander("Expand to view scatter plot", expanded=False):
 
     # Button to generate pizza chart
     if st.button(f'Generate Scatter Plot'):
-        fig_scatter = create_scatter_chart(data_frame, league, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
+        fig_scatter = create_scatter_chart(data_frame, league, player_name, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
         if fig_scatter is not None:
             st.pyplot(fig_scatter)  # Display the pizza chart
 
