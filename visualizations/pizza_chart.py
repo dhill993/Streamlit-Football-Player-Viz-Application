@@ -10,6 +10,7 @@ from utilities.utils import custom_fontt
 def create_pizza_chart(complete_data,league_name, player_name, position):
     if league_name!='All':
         complete_data = complete_data[complete_data['League'] == league_name]    
+    player_df_before = complete_data[complete_data['Name'] == player_name]    
     player_df = get_player_metrics_percentile_ranks(complete_data, player_name, position)
     if player_df is None or player_df.empty:
         st.error(f'Player {player_name} not found.')
@@ -83,7 +84,7 @@ def create_pizza_chart(complete_data,league_name, player_name, position):
 
     fig.text(
         0.08, 0.90,
-        "Percentile Rank vs. Positional Peers | Stats per 90",
+        "Percentile Rank vs. Positional Peers",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
     )
@@ -92,11 +93,10 @@ def create_pizza_chart(complete_data,league_name, player_name, position):
 
     fig.text(
         0.08, 0.88,
-        f"Minutes Played: {int(player_df['Minutes'])}",
+        f"Minutes Played: {int(player_df_before['Minutes'])}",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
     )
-
 
     # Add a horizontal line at the top with the team's primary color
     fig.add_artist(plt.Line2D((0, 1.2), (0.87, 0.87), color='white', linewidth=2, alpha=0.8, transform=fig.transFigure))
