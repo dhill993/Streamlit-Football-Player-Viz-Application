@@ -2,7 +2,7 @@ all_metric_categories  = {
     'Centre Back':
     {
         "Defensive": ["Dribbles Stopped%", "Aerial Win%", "PAdj Tackles", "PAdj Interceptions", "Aggressive Actions"],
-        "Progressive": ["Key Passes", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"], #key_passes is temp ; it needs to be replaced with passes %
+        "Progressive": ["Passing%", "OP F3 Passes", "Carry Length", "xGBuildup", "Carry%"], #key_passes is temp ; it needs to be replaced with passes %
         "Advanced": ["PAdj Clearances", "Blocks/Shot", "Ball Recoveries", "Defensive Regains", "Dispossessed"]
     },
 
