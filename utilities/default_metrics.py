@@ -16,7 +16,7 @@ all_metric_categories  = {
     'Defensive Midfielder':
     {
         "Defensive": ["Dribbles Stopped%", "Defensive Actions", "PAdj Tackles", "PAdj Interceptions", "Aggressive Actions"],
-        "Progressive": ["Passing%", "OP F3 Passes", "Carry Length", "xGBuildup", "Long Ball%"],
+        "Progressive": ["Passing%", "OP F3 Passes", "Carry Length", "xGBuildup", "Carry%"],
         "Advanced": ["Aerial Win%", "Blocks/Shot", "Ball Recoveries", "Defensive Regains", "Dispossessed"]
     },
 
