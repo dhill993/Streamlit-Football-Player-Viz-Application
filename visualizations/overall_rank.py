@@ -19,7 +19,7 @@ def get_overall_rank(data, league_name, position):
     # Calculate the average of all metric percentiles to get the overall score, rounded to 2 decimal places
     data['Overall Score'] = data[[f'{metric}_percentile' for metric in all_numeric_metrics]].mean(axis=1).astype(int)
     data = data.sort_values(by='Overall Score', ascending=False)
-    return data[['Name', 'Team', 'Minutes', 'Overall Score']]
+    return data[['Name', 'Team', 'Age', 'Minutes', 'Overall Score']]
 
 def create_rank_visualization(data, league_name, position):
     """
@@ -44,6 +44,6 @@ def create_rank_visualization(data, league_name, position):
     overall_rank_df = overall_rank_df.reset_index()
     overall_rank_df.index = overall_rank_df.index + 1  # Start the index from 1
 
-    styled_df = overall_rank_df[['Name', 'Team', 'Minutes', 'Overall Score']].style.apply(color_overall_score, axis=1, subset=['Overall Score'])
+    styled_df = overall_rank_df[['Name', 'Team', 'Age', 'Minutes', 'Overall Score']].style.apply(color_overall_score, axis=1, subset=['Overall Score'])
 
     return styled_df
