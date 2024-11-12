@@ -54,4 +54,91 @@ all_numeric_metrics = [
     "Touches In Box", "PinTin", "Throughballs", "Successful Crosses", "Crossing%"
 ]
 non_numeric = ['Team', 'Name', 'Age', 'Minutes', 'Primary Position']
+positions_dict_for_similarity = {
+    "Centre Back": [
+        "Aerial Win%",
+        "PAdj Tackles",
+        "PAdj Interceptions",
+        "Defensive Regains",
+        "Ball Recoveries",
+        "Dribbles",
+        "Successful Dribbles",
+        "Carries",
+        "OP F3 Passes",
+        "Carry Length",
+        "Blocks/Shot",
+        "OP Passes"
+    ],
+    "Full Back": [
+        "xG Assisted",
+        "Dribbles",
+        "Successful Dribbles",
+        "PAdj Interceptions",
+        "Aggressive Actions",
+        "Ball Recov. F2",
+        "Dribbles Stopped%",
+        "Carries",
+        "OP F3 Passes",
+        "Crossing%",
+        "Successful Crosses",
+        "PinTin"
+    ],
+    "Defensive Midfielder": [
+        "Aerial Wins%",
+        "PAdj Tackles",
+        "PAdj Interceptions",
+        "Defensive Regains",
+        "Ball Recoveries",
+        "Aggressive Actions",
+        "OP F3 Passes",
+        "xGBuildup",
+        "Dribbles",
+        "Key Passes",
+        "Throughballs",
+        "Blocks/Shot"
+    ],
+    "Attacking Midfielder": [
+        "xG",
+        "Shots",
+        "xG Assisted",
+        "Scoring Contribution",
+        "Dribbles",
+        "xG/Shot",
+        "Aggressive Actions",
+        "Ball Recov. F2",
+        "OP F3 Passes",
+        "PinTin",
+        "Passes Inside Box",
+        "Throughballs"
+    ],
+    "Winger": [
+        "xG",
+        "Shots",
+        "xG Assisted",
+        "Scoring Contribution",
+        "Dribbles",
+        "xG/Shot",
+        "Aggressive Actions",
+        "Ball Recov. F2",
+        "PinTin",
+        "Passes Inside Box",
+        "Crossing%",
+        "Successful Crosses"
+    ],
+    "Centre Forward": [
+        "xG",
+        "Shots",
+        "xG/Shot",
+        "Shooting%",
+        "Shot Touch%",
+        "Scoring Contribution",
+        "Aerial Win%",
+        "PinTin",
+        "xG Assisted",
+        "Dribbles",
+        "Successful Dribbles",
+        "Aggressive Actions"
+    ]
+}
+
 metrics_required = list(set(all_cat_metric) | set(non_numeric))
