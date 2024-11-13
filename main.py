@@ -131,7 +131,7 @@ with st.expander("Expand to view players zscore rank score", expanded=False):
     # Button to generate pizza chart
     if st.button(f'Get zscore ranking'):
         try:
-            top_10_players = top_10_players_by_profile(position, profile_name, data_frame)
+            top_10_players = top_10_players_by_profile(league, position, profile_name, data_frame)
             st.dataframe(top_10_players, use_container_width=True)
         except Exception as e:
             st.error(f"Error : {e}")

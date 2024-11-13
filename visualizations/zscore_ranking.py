@@ -1,7 +1,10 @@
 from scipy.stats import zscore
 from utilities.default_metrics import profiles_zcore
 
-def top_10_players_by_profile(position, profile_name, df):
+def top_10_players_by_profile(league_name, position, profile_name, df):
+
+    if league_name != 'All':
+        df = df[df['League'] == league_name]    
 
     df = df[df['Minutes']>500]
     # Find the selected profile for the given position
