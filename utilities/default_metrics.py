@@ -50,7 +50,7 @@ all_numeric_metrics = [
     "PAdj Clearances", "Aggressive Actions", "Blocks/Shot", "Defensive Regains", 
     "Ball Recov. F2", "Ball Recoveries", "PAdj Tackles", "PAdj Tack&Int", 
     "Dribbles Stopped%", "Aerial Win%", "OP Passes", "Passing%", "xGBuildup", 
-    "Carries", "Carry%", "Carry Length", "OP F3 Passes", "Passes Inside Box", 
+    "Carries", "Carry%", "Carry Length", "OP F3 Passes", 
     "Touches In Box", "PinTin", "Throughballs", "Successful Crosses", "Crossing%"
 ]
 non_numeric = ['Team', 'Name', 'Age', 'Minutes', 'Primary Position']

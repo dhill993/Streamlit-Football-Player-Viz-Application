@@ -33,9 +33,12 @@ with st.expander("Expand to view pizza chart", expanded=False):
 
     # Button to generate pizza chart
     if st.button('Generate Pizza Chart'):
-        fig_pizza = create_pizza_chart(data_frame, league,player_name, position)
-        if fig_pizza is not None:
-            st.pyplot(fig_pizza)  # Display the pizza chart
+        try:
+            fig_pizza = create_pizza_chart(data_frame, league,player_name, position)
+            if fig_pizza is not None:
+                st.pyplot(fig_pizza)  # Display the pizza chart
+        except Exception as e:
+            st.error(f"Error : {e}")
 
 with st.expander("Expand to view player comparison radar chart", expanded=False):
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='radar_league')
@@ -45,10 +48,12 @@ with st.expander("Expand to view player comparison radar chart", expanded=False)
 
     # Button to generate pizza chart
     if st.button('Generate Radar Chart'):
-        fig_radar = create_radar_chart(data_frame, league,player_name, position)
-        if fig_radar is not None:
-            st.pyplot(fig_radar)  # Display the pizza chart
-
+        try:
+            fig_radar = create_radar_chart(data_frame, league,player_name, position)
+            if fig_radar is not None:
+                st.pyplot(fig_radar)  # Display the pizza chart
+        except Exception as e:
+            st.error(f"Error : {e}")
 
 with st.expander("Expand to view scatter plot", expanded=False):
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='scatter_league')
@@ -81,9 +86,12 @@ with st.expander("Expand to view scatter plot", expanded=False):
 
     # Button to generate pizza chart
     if st.button(f'Generate Scatter Plot'):
-        fig_scatter = create_scatter_chart(data_frame, league, player_name, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
-        if fig_scatter is not None:
-            st.pyplot(fig_scatter)  # Display the pizza chart
+        try:
+            fig_scatter = create_scatter_chart(data_frame, league, player_name, position, x_metric_display, y_metric_display, age_range[0], age_range[1], minutes_range[0], minutes_range[1])
+            if fig_scatter is not None:
+                st.pyplot(fig_scatter)  # Display the pizza chart
+        except Exception as e:
+            st.error(f"Error : {e}")
 
 
 with st.expander("Expand to view players overall rank score", expanded=False):
@@ -93,22 +101,25 @@ with st.expander("Expand to view players overall rank score", expanded=False):
 
     # Button to generate pizza chart
     if st.button(f'Computer Ranks for {position}'):
-        fig_roverall = create_rank_visualization(data_frame, league, position)
-        if fig_roverall is not None:
-            with st.container():
-                st.write(
-                    """
-                    <style>
-                    .dataframe th:nth-child(1) {{ width: 150px; }}  /* Width for Name */
-                    .dataframe th:nth-child(2) {{ width: 100px; }}  /* Width for Team */
-                    .dataframe th:nth-child(3) {{ width: 80px; }}   /* Width for Minutes */
-                    .dataframe th:nth-child(4) {{ width: 120px; }}  /* Width for Overall Score */
-                    .dataframe th:nth-child(5) {{ width: 10px; }}   /* Width for Overall Rank */
-                    </style>
-                    """,
-                    unsafe_allow_html=True
-                )
-                st.dataframe(fig_roverall, use_container_width=True)
+        try:
+            fig_roverall = create_rank_visualization(data_frame, league, position)
+            if fig_roverall is not None:
+                with st.container():
+                    st.write(
+                        """
+                        <style>
+                        .dataframe th:nth-child(1) {{ width: 150px; }}  /* Width for Name */
+                        .dataframe th:nth-child(2) {{ width: 100px; }}  /* Width for Team */
+                        .dataframe th:nth-child(3) {{ width: 80px; }}   /* Width for Minutes */
+                        .dataframe th:nth-child(4) {{ width: 120px; }}  /* Width for Overall Score */
+                        .dataframe th:nth-child(5) {{ width: 10px; }}   /* Width for Overall Rank */
+                        </style>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.dataframe(fig_roverall, use_container_width=True)
+        except Exception as e:
+            st.error(f"Error : {e}")
 
 with st.expander("Expand to view player similarity", expanded=False):
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='overall_league_sim')
@@ -123,13 +134,16 @@ with st.expander("Expand to view player similarity", expanded=False):
 
     # Button to generate pizza chart
     if st.button(f'Get similar players'):
-        similar_players_df = filter_similar_players(
-            data_frame, 
-            player_name=player_name,
-            league_name=league,
-            position=position,
-            similarity_threshold=similarity_threshold, 
-            max_age=max_age
-        )
-        # Display similar players
-        st.dataframe(similar_players_df, use_container_width=True)
+        try:
+            similar_players_df = filter_similar_players(
+                data_frame, 
+                player_name=player_name,
+                league_name=league,
+                position=position,
+                similarity_threshold=similarity_threshold, 
+                max_age=max_age
+            )
+            # Display similar players
+            st.dataframe(similar_players_df, use_container_width=True)
+        except Exception as e:
+            st.error(f"Error : {e}")
