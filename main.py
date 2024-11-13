@@ -4,8 +4,9 @@ from visualizations.pizza_chart import create_pizza_chart
 from visualizations.radar_chart import create_radar_chart
 from visualizations.overall_rank import create_rank_visualization
 from visualizations.scatter_plot import create_scatter_chart
-from utilities.default_metrics import all_numeric_metrics
+from visualizations.zscore_ranking import top_10_players_by_profile
 from visualizations.similarity_chart import filter_similar_players
+from utilities.default_metrics import profiles_zcore as profiles, all_numeric_metrics
 
 from st_pages import show_pages_from_config
 
@@ -121,6 +122,20 @@ with st.expander("Expand to view players overall rank score", expanded=False):
         except Exception as e:
             st.error(f"Error : {e}")
 
+with st.expander("Expand to view players zscore rank score", expanded=False):
+    league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='overall_league_zcs')
+    position = st.selectbox("Select Player Position", options=list(profiles.keys()))
+    profile_options = [profile["Profile Name"] for profile in profiles[position]]
+    profile_name = st.selectbox("Select Profile", options=profile_options)
+
+    # Button to generate pizza chart
+    if st.button(f'Get zscore ranking'):
+        try:
+            top_10_players = top_10_players_by_profile(position, profile_name, data_frame)
+            st.dataframe(top_10_players, use_container_width=True)
+        except Exception as e:
+            st.error(f"Error : {e}")
+
 with st.expander("Expand to view player similarity", expanded=False):
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='overall_league_sim')
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='scatter_pos_sim')
@@ -147,3 +162,4 @@ with st.expander("Expand to view player similarity", expanded=False):
             st.dataframe(similar_players_df, use_container_width=True)
         except Exception as e:
             st.error(f"Error : {e}")
+

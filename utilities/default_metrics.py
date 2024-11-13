@@ -142,3 +142,99 @@ positions_dict_for_similarity = {
 }
 
 metrics_required = list(set(all_cat_metric) | set(non_numeric))
+
+profiles_zcore = {
+    "Centre Back": [
+        {
+            "Profile Name": "No Nonsense Centre Back",
+            "Using Metrics": [
+                "Aerial Win%", "Defensive Actions", "Blocks/Shot", "Defensive Regains",
+                "Ball Recoveries", "PAdj Tackles", "PAdj Interceptions", "Dribbles Stopped%",
+                "DA OBV", "PAdj Clearances"
+            ],
+            "Weighted Metrics": ["Aerial Win%", "Defensive Actions", "Ball Recoveries", "DA OBV"],
+            "Z Score Name": "No Nonsense CB Score"
+        },
+        {
+            "Profile Name": "Adventures Wide Centre Back",
+            "Using Metrics": [
+                "Aerial Win%", "Defensive Actions", "Defensive Regains", "Ball Recoveries",
+                "PAdj Tackles", "PAdj Interceptions", "Dribbles Stopped%", "xGBuildup",
+                "Carry Length", "Dribbles", "Successful Dribbles", "OP F3 Passes"
+            ],
+            "Weighted Metrics": [
+                "xGBuildup", "Dribbles Stopped%", "Carry Length", "Dribbles",
+                "Successful Dribbles", "OP F3 Passes"
+            ],
+            "Z Score Name": "Adventures Wide CB Score"
+        }
+    ],
+    "Full Back": [
+        {
+            "Profile Name": "Progressive Wing Back",
+            "Using Metrics": [
+                "PAdj Tackles", "PAdj Interceptions", "Dribbles Stopped%", "xGBuildup",
+                "Carry Length", "Carry%", "Dribbles", "Successful Dribbles", "OP F3 Passes",
+                "xG Assisted", "OP Key Passes", "Scoring Contribution", "PinTin",
+                "Successful Crosses", "Crossing%", "Ball Recov. F2", "D&C OBV"
+            ],
+            "Weighted Metrics": [
+                "xGBuildup", "Carry Length", "Successful Dribbles", "xG Assisted", 
+                "PinTin", "Successful Crosses", "D&C OBV"
+            ],
+            "Z Score Name": "Progressive WB Score"
+        },
+        {
+            "Profile Name": "Direct Wing Back",
+            "Using Metrics": [
+                "PAdj Tackles", "PAdj Interceptions", "Dribbles Stopped%", "Carry Length",
+                "Carry%", "Dribbles", "Successful Dribbles", "OP F3 Passes", "xG Assisted",
+                "Successful Crosses", "Crossing%", "Ball Recov. F2", "D&C OBV"
+            ],
+            "Weighted Metrics": ["Carry Length", "Dribbles", "Successful Dribbles", "D&C OBV"],
+            "Z Score Name": "Direct WB Score"
+        }
+    ],
+    "Defensive Midfielder": [
+        {
+            "Profile Name": "Defensive 6",
+            "Using Metrics": [
+                "PAdj Tackles", "PAdj Interceptions", "Dribbles Stopped%", "Defensive Actions",
+                "Defensive Regains", "Ball Recoveries", "Aerial Win%", "DA OBV"
+            ],
+            "Weighted Metrics": ["Defensive Actions", "Defensive Regains", "Ball Recoveries", "DA OBV", "PAdj Interceptions"],
+            "Z Score Name": "Defensive 6 Score"
+        },
+        {
+            "Profile Name": "Progressive 8",
+            "Using Metrics": [
+                "PAdj Interceptions", "Ball Recoveries", "Deep Progressions", "OP F3 Passes",
+                "Throughballs", "Shots", "Pass OBV", "OP Key Passes"
+            ],
+            "Weighted Metrics": ["Deep Progressions", "OP Key Passes", "OP F3 Passes"],
+            "Z Score Name": "Progressive 8 Score"
+        }
+    ],
+    "Winger": [
+        {
+            "Profile Name": "Providing Winger",
+            "Using Metrics": [
+                "Successful Dribbles", "Scoring Contribution", "Assists", "xG Assisted",
+                "Key Passes", "Shots", "PinTin", "Crossing%", "Successful Crosses"
+            ],
+            "Weighted Metrics": ["Successful Crosses", "xG Assisted", "Scoring Contribution", "OP Key Passes"],
+            "Z Score Name": "Providing Winger Score"
+        }
+    ],
+    "Attacking Midfielder": [
+        {
+            "Profile Name": "Progressive 8",
+            "Using Metrics": [
+                "PAdj Interceptions", "Ball Recoveries", "Deep Progressions", "OP F3 Passes",
+                "Throughballs", "Shots", "Pass OBV", "OP Key Passes"
+            ],
+            "Weighted Metrics": ["Deep Progressions", "OP Key Passes", "OP F3 Passes"],
+            "Z Score Name": "Progressive 8 Score"
+        }
+    ]
+}
