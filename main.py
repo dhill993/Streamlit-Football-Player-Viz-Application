@@ -5,6 +5,7 @@ from visualizations.radar_chart import create_radar_chart
 from visualizations.overall_rank import create_rank_visualization
 from visualizations.scatter_plot import create_scatter_chart
 from utilities.default_metrics import all_numeric_metrics
+from visualizations.similarity_chart import filter_similar_players
 
 from st_pages import show_pages_from_config
 
@@ -18,15 +19,15 @@ st.set_page_config(
 )
 
 st.title('Bristol Rovers - Data Analysis Tool')
+data_frame = load_data(DATA_PATH)
+leaguesoptions = list(data_frame['League'].unique())
+leaguesoptions.append('All')
 playing_positions = ['Centre Back', 'Full Back', 'Defensive Midfielder', 'Winger', 'Centre Forward', 'Attacking Midfielder']
 
+
 with st.expander("Expand to view pizza chart", expanded=False):
-    data_frame = load_data(DATA_PATH)
-    leaguesoptions = list(data_frame['League'].unique())
-    leaguesoptions.append('All')
 
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='pizza_league')
-
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='pizza_positon')
     player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, league,position), index=0, key='pizza_player')
 
@@ -37,10 +38,6 @@ with st.expander("Expand to view pizza chart", expanded=False):
             st.pyplot(fig_pizza)  # Display the pizza chart
 
 with st.expander("Expand to view player comparison radar chart", expanded=False):
-    data_frame = load_data(DATA_PATH)
-    leaguesoptions = list(data_frame['League'].unique())
-    leaguesoptions.append('All')
-
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='radar_league')
 
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='radar_positon')
@@ -54,10 +51,6 @@ with st.expander("Expand to view player comparison radar chart", expanded=False)
 
 
 with st.expander("Expand to view scatter plot", expanded=False):
-    data_frame = load_data(DATA_PATH)
-    leaguesoptions = list(data_frame['League'].unique())
-    leaguesoptions.append('All')
-
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='scatter_league')
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='scatter_pos')
     player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, league,position), index=0, key='scatter_player')
@@ -94,9 +87,7 @@ with st.expander("Expand to view scatter plot", expanded=False):
 
 
 with st.expander("Expand to view players overall rank score", expanded=False):
-    data_frame = load_data(DATA_PATH)
-    leaguesoptions = list(data_frame['League'].unique())
-    leaguesoptions.append('All')
+
     league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='overall_league')
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='overall_position')
 
@@ -118,3 +109,27 @@ with st.expander("Expand to view players overall rank score", expanded=False):
                     unsafe_allow_html=True
                 )
                 st.dataframe(fig_roverall, use_container_width=True)
+
+with st.expander("Expand to view player similarity", expanded=False):
+    league = st.selectbox('Select League:',leaguesoptions[::-1], index=0, key='overall_league_sim')
+    position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='scatter_pos_sim')
+    player_name = st.selectbox('Select Player:', get_players_by_position(data_frame, league,position), index=0, key='scatter_player_sim')
+
+    similarity_threshold = st.slider('Similarity Percent Threshold (%)', 50, 100, 90) / 100  # Converts slider percentage to decimal
+
+    # Maximum age limit input
+    max_age = st.number_input('Maximum Age', min_value=18, max_value=60, value=30)
+
+
+    # Button to generate pizza chart
+    if st.button(f'Get similar players'):
+        similar_players_df = filter_similar_players(
+            data_frame, 
+            player_name=player_name,
+            league_name=league,
+            position=position,
+            similarity_threshold=similarity_threshold, 
+            max_age=max_age
+        )
+        # Display similar players
+        st.dataframe(similar_players_df, use_container_width=True)
