@@ -41,7 +41,7 @@ st.markdown("""
         .title {
             font-size: 46px;
             font-weight: bold;
-            color: #0033C0; /* Custom color for the title */
+            color: #014FFF; /* Custom color for the title */
             white-space: nowrap; /* Prevents the title from breaking into multiple lines */
         }
 
