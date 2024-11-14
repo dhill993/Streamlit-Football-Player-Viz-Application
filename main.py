@@ -152,7 +152,7 @@ with st.expander("Expand to view players overall rank score", expanded=False):
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='overall_position')
 
     # Button to generate pizza chart
-    if st.button(f'Computer Ranks for {position}'):
+    if st.button(f'Generate Overall Ranks for {position}'):
         try:
             fig_roverall = create_rank_visualization(data_frame, league, position)
             if fig_roverall is not None:
@@ -180,7 +180,7 @@ with st.expander("Expand to view players zscore rank score", expanded=False):
     profile_name = st.selectbox("Select Profile", options=profile_options)
 
     # Button to generate pizza chart
-    if st.button(f'Get zscore ranking'):
+    if st.button(f'Generate Zscore Ranks'):
         try:
             top_10_players = top_10_players_by_profile(league, position, profile_name, data_frame)
             st.dataframe(top_10_players, use_container_width=True)
@@ -198,7 +198,7 @@ with st.expander("Expand to view player similarity", expanded=False):
     max_age = st.number_input('Maximum Age', min_value=18, max_value=60, value=30)
 
     # Button to generate pizza chart
-    if st.button(f'Get similar players'):
+    if st.button(f'Generate similar players'):
         try:
             similar_players_df = filter_similar_players(
                 data_frame, 
