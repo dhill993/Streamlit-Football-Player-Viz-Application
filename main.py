@@ -35,11 +35,11 @@ st.markdown("""
         .logo {
             width: 60px; /* Adjust logo size */
             height: auto;
-            margin-right: 15px; /* Space between logo and title */
+            margin-right: 12px; /* Space between logo and title */
         }
         
         .title {
-            font-size: 46px;
+            font-size: 36px;
             font-weight: bold;
             color: #014FFF; /* Custom color for the title */
             white-space: nowrap; /* Prevents the title from breaking into multiple lines */
@@ -54,11 +54,11 @@ st.markdown("""
 
             .logo {
                 width: 50px; /* Adjust logo size for smaller screens */
-                margin-right: 10px; /* Reduce space between logo and title */
+                margin-right: 8px; /* Reduce space between logo and title */
             }
 
             .title {
-                font-size: 20px; /* Smaller font size for mobile */
+                font-size: 18px; /* Smaller font size for mobile */
                 text-align: center; /* Centers the title on smaller screens */
             }
         }
