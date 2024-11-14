@@ -24,16 +24,19 @@ def create_scatter_chart(df, league, player, player_position, x_metric, y_metric
 
     # Scatter plot for all players
     if league != 'All':
-        x_percentile = 93
-        y_percentile = 93
-    else:
         x_percentile = 97
         y_percentile = 97
+    else:
+        x_percentile = 95
+        y_percentile = 95
 
     top_x_players = df[df[f'{x_metric}_percentile'] >= x_percentile]
     top_y_players = df[df[f'{y_metric}_percentile'] >= y_percentile]
-    top_both_players = df[(df[f'{x_metric}_percentile'] >= x_percentile) & (df[f'{y_metric}_percentile'] >= y_percentile)]
+    top_both_players = df[(df[f'{x_metric}_percentile'] >= x_percentile) | (df[f'{y_metric}_percentile'] >= y_percentile)]
     top_players = pd.concat([top_x_players, top_y_players, top_both_players]).drop_duplicates()
+
+    non_top_players = df[~df['Name'].isin(top_players['Name'])]
+    random_players = non_top_players.sample(15)
 
     # Create scatter plot
     fig, ax = plt.subplots(figsize=(16,10), facecolor='#222222')
@@ -59,7 +62,7 @@ def create_scatter_chart(df, league, player, player_position, x_metric, y_metric
         ax.annotate(
             player, 
             (player_row[x_metric].values[0], player_row[y_metric].values[0]),
-            fontsize=10, color='white', ha='left', va='bottom', fontproperties=custom_fontt, alpha=0.9
+            fontsize=8, color='white', ha='left', va='bottom', fontproperties=custom_fontt, alpha=0.9
         )
 
     # Annotate remaining top players
@@ -69,7 +72,15 @@ def create_scatter_chart(df, league, player, player_position, x_metric, y_metric
         ax.annotate(
             initials,
             (row[x_metric], row[y_metric]),
-            fontsize=10, color='#d0ceda', alpha=0.7, ha='left', va='bottom', fontproperties=custom_fontt
+            fontsize=8, color='#d0ceda', alpha=0.7, ha='left', va='bottom', fontproperties=custom_fontt
+        )
+
+    # Annotate random players' names
+    for _, row in random_players.iterrows():
+        ax.annotate(
+            row['Name'],
+            (row[x_metric], row[y_metric]),
+            fontsize=8, color='white', ha='left', va='top', fontproperties=custom_fontt, alpha=0.6
         )
 
     # Titles and labels

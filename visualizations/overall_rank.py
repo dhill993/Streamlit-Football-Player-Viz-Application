@@ -11,11 +11,12 @@ def get_overall_rank(data, league_name, position):
         data = data[data['League'] == league_name]    
     data = data[data['Primary Position']==position]
     data = data[data['Minutes']>=500]
+    data['Age'] = data['Age'].astype(int)
 
     for metric in all_numeric_metrics:
         # Calculate the percentile rank for each metric and round to 2 decimal places
         data[f'{metric}_percentile'] = (data[metric].rank(pct=True) * 100).round(0)
-    
+
     # Calculate the average of all metric percentiles to get the overall score, rounded to 2 decimal places
     data['Overall Score'] = data[[f'{metric}_percentile' for metric in all_numeric_metrics]].mean(axis=1)
 
