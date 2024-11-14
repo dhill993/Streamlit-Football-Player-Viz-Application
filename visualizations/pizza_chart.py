@@ -93,7 +93,7 @@ def create_pizza_chart(complete_data,league_name, player_name, position):
 
     fig.text(
         0.08, 0.88,
-        f"Minutes Played: {int(player_df_before['Minutes'])}",
+        f"Minutes Played: {int(player_df_before['Minutes'])}  |  Age: {int(player_df_before['Age'])}",
         size=10,
         ha="left", fontproperties=custom_fontt, color="#F2F2F2", alpha=0.8
     )

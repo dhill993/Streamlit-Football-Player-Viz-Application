@@ -104,9 +104,26 @@ def create_radar_chart(complete_data, league_name,player_name, position):
     ]
 
     dis_league_name = league_name if league_name!='All' else 'All Leagues'
+    dis_league_name = f"Avg {dis_league_name} {position}"
+    if len(dis_league_name) > 25:
+        words = dis_league_name.split()
+        first_line = ''
+        second_line = ''
+        
+        for word in words:
+            # Check if adding the next word would exceed the 25-character limit for the first line
+            if len(first_line) + len(word) + 1 <= 25:
+                first_line += (word + ' ')
+            else:
+                second_line += (word + ' ')
+        
+        # Combine the two lines with '\n' between them
+        dis_league_name = first_line.strip() + '\n' + second_line.strip()
+
+
     legend_elements_2 = [
         Patch(facecolor='#1f77b4', edgecolor='gray', label=f"{player_name}"),
-        Patch(facecolor='#d62728', edgecolor='gray', label=f'Average {dis_league_name} {position}'),
+        Patch(facecolor='#d62728', edgecolor='gray', label=f'{dis_league_name}'),
         Patch(facecolor='#2E2E2A', label='')]
 
     combined_legend_elements = legend_elements_2 + legend_elements_1
