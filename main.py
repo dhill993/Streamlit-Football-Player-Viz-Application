@@ -13,13 +13,65 @@ from st_pages import show_pages_from_config
 DATA_PATH = 'data/All Leagues/*.csv'
 show_pages_from_config()
 st.set_page_config(
-    page_title='Bristol Rovers - Data Analysis Tool',
+    page_title='Bristol Rovers - Recruitment Data Hub',
     page_icon='💹',
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-st.title('Bristol Rovers - Data Analysis Tool')
+import streamlit as st
+
+# Define your HTML and CSS styling
+st.markdown("""
+    <style>
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allows elements to wrap on smaller screens */
+        }
+        
+        .logo {
+            width: 60px; /* Adjust logo size */
+            height: auto;
+            margin-right: 12px; /* Space between logo and title */
+        }
+        
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #014FFF; /* Custom color for the title */
+            white-space: nowrap; /* Prevents the title from breaking into multiple lines */
+        }
+
+        /* Media query for small screens (mobile devices) */
+        @media (max-width: 600px) {
+            .title-container {
+                justify-content: center;
+                text-align: center; /* Centers the title and logo */
+            }
+
+            .logo {
+                width: 50px; /* Adjust logo size for smaller screens */
+                margin-right: 8px; /* Reduce space between logo and title */
+            }
+
+            .title {
+                font-size: 18px; /* Smaller font size for mobile */
+                text-align: center; /* Centers the title on smaller screens */
+            }
+        }
+    </style>
+
+    <div class="title-container">
+        <img src="https://www.bristolrovers.co.uk/themes/custom/bristol/files/bristol-rovers.svg" class="logo" alt="Logo">
+        <span class="title">Bristol Rovers - Recruitment Data Hub</span>
+    </div>
+""", unsafe_allow_html=True)
+
+
+st.markdown("")
 data_frame = load_data(DATA_PATH)
 leaguesoptions = list(data_frame['League'].unique())
 leaguesoptions.append('All')
@@ -100,7 +152,7 @@ with st.expander("Expand to view players overall rank score", expanded=False):
     position = st.selectbox('Select Playing Position:', playing_positions, index=0, key='overall_position')
 
     # Button to generate pizza chart
-    if st.button(f'Computer Ranks for {position}'):
+    if st.button(f'Generate Overall Ranks for {position}'):
         try:
             fig_roverall = create_rank_visualization(data_frame, league, position)
             if fig_roverall is not None:
@@ -128,7 +180,7 @@ with st.expander("Expand to view players zscore rank score", expanded=False):
     profile_name = st.selectbox("Select Profile", options=profile_options)
 
     # Button to generate pizza chart
-    if st.button(f'Get zscore ranking'):
+    if st.button(f'Generate Zscore Ranks'):
         try:
             top_10_players = top_10_players_by_profile(league, position, profile_name, data_frame)
             st.dataframe(top_10_players, use_container_width=True)
@@ -146,7 +198,7 @@ with st.expander("Expand to view player similarity", expanded=False):
     max_age = st.number_input('Maximum Age', min_value=18, max_value=60, value=30)
 
     # Button to generate pizza chart
-    if st.button(f'Get similar players'):
+    if st.button(f'Generate similar players'):
         try:
             similar_players_df = filter_similar_players(
                 data_frame, 

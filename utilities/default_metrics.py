@@ -224,7 +224,17 @@ profiles_zcore = {
             ],
             "Weighted Metrics": ["Successful Crosses", "xG Assisted", "Scoring Contribution", "OP Key Passes"],
             "Z Score Name": "Providing Winger Score"
+        },
+        {
+            "Profile Name": "Goal Threat Winger",
+            "Using Metrics": [
+                "Dribbles", "Scoring Contribution", "Assists", "xG Assisted", "Shots",
+                "PinTin", "xG/Shot", "Touches In Box"
+            ],
+            "Weighted Metrics": ["Shots", "xG/Shot", "Touches In Box"],
+            "Z Score Name": "Goal Threat Winger Score"
         }
+
     ],
     "Attacking Midfielder": [
         {
@@ -235,6 +245,35 @@ profiles_zcore = {
             ],
             "Weighted Metrics": ["Deep Progressions", "OP Key Passes", "OP F3 Passes"],
             "Z Score Name": "Progressive 8 Score"
+        },
+        {
+            "Profile Name": "Creative 10",
+            "Using Metrics": [
+                "xG", "Shots", "Assists", "xG Assisted", "Key Passes",
+                "Scoring Contribution", "PinTin", "Throughballs"
+            ],
+            "Weighted Metrics": ["xG Assisted", "Key Passes", "Scoring Contribution", "PinTin"],
+            "Z Score Name": "Creative 10 Score"
+        }
+    ],
+    "Centre Forward": [
+        {
+            "Profile Name": "Workhorse 9",
+            "Using Metrics": [
+                "xG", "Shots", "Assists", "xG Assisted", "Scoring Contribution",
+                "PinTin", "PAdj Pressures", "Counterpress Regains"
+            ],
+            "Weighted Metrics": ["PinTin", "PAdj Pressures", "Counterpress Regains"],
+            "Z Score Name": "Workhorse 9 Score"
+        },
+        {
+            "Profile Name": "Dominant CF",
+            "Using Metrics": [
+                "xG", "Shots", "Shooting%", "Shot Touch%", "Aerial Win%",
+                "Touches In Box", "Shot OBV"
+            ],
+            "Weighted Metrics": ["Shot Touch%", "Aerial Win%", "Touches In Box"],
+            "Z Score Name": "Dominant CF Score"
         }
     ]
 }

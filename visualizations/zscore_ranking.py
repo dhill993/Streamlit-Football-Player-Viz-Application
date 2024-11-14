@@ -7,6 +7,8 @@ def top_10_players_by_profile(league_name, position, profile_name, df):
         df = df[df['League'] == league_name]    
 
     df = df[df['Minutes']>500]
+    df = df[df['Primary Position'] == position]
+
     # Find the selected profile for the given position
     profile = next(
         (p for p in profiles_zcore.get(position, []) if p["Profile Name"] == profile_name), None
