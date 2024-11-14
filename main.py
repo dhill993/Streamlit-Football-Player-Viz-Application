@@ -7,8 +7,8 @@ from visualizations.scatter_plot import create_scatter_chart
 from visualizations.zscore_ranking import top_10_players_by_profile
 from visualizations.similarity_chart import filter_similar_players
 from utilities.default_metrics import profiles_zcore as profiles, all_numeric_metrics
-
 from st_pages import show_pages_from_config
+
 
 DATA_PATH = 'data/All Leagues/*.csv'
 show_pages_from_config()
@@ -84,7 +84,6 @@ with st.expander("Expand to view scatter plot", expanded=False):
         index=0
     )
 
-
     # Button to generate pizza chart
     if st.button(f'Generate Scatter Plot'):
         try:
@@ -145,7 +144,6 @@ with st.expander("Expand to view player similarity", expanded=False):
 
     # Maximum age limit input
     max_age = st.number_input('Maximum Age', min_value=18, max_value=60, value=30)
-
 
     # Button to generate pizza chart
     if st.button(f'Get similar players'):

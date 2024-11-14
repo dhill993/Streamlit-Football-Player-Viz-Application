@@ -1,6 +1,4 @@
 from utilities.default_metrics import positions_dict_for_similarity
-from utilities.default_metrics import all_numeric_metrics
-import pandas as pd
 
 
 def filter_similar_players(df, player_name, league_name, position, similarity_threshold, max_age):

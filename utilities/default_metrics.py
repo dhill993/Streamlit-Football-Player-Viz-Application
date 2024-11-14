@@ -84,7 +84,7 @@ positions_dict_for_similarity = {
         "PinTin"
     ],
     "Defensive Midfielder": [
-        "Aerial Wins%",
+        "Aerial Win%",
         "PAdj Tackles",
         "PAdj Interceptions",
         "Defensive Regains",
