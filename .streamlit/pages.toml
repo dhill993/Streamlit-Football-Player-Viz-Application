@@ -1,9 +1,9 @@
 [[pages]]
 path = "main.py"
-name = "Draw Visualizations"
+name = "Visualizations"
 icon = "💹"
 
 [[pages]]
 path = "data/upload_data.py"
-name = "Update Data [Admin Only]"
+name = "Data [Admin Only]"
 icon = "📊"
