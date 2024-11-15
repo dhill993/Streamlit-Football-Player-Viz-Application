@@ -11,6 +11,8 @@ def get_overall_rank(data, league_name, position):
         data = data[data['League'] == league_name]    
     data = data[data['Primary Position']==position]
     data = data[data['Minutes']>=500]
+    data['Age'] = data['Age'].fillna(0)  # Replace NaN with 0
+    data['Age'] = data['Age'].replace([float('inf'), -float('inf')], 0)
     data['Age'] = data['Age'].astype(int)
 
     for metric in all_numeric_metrics:
