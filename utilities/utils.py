@@ -6,7 +6,6 @@ import os
 import streamlit as st
 custom_fontt = fm.FontProperties(fname="fonts/Alexandria-Regular.ttf")
 
-@st.cache_data(ttl=3600)  # Cache for one hour
 def load_data(folder_path):
     all_data = []
     for file in glob.glob(folder_path):
